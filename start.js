@@ -1,25 +1,24 @@
-var audioContext;
+let audioContext;
 
 
-window.onload = function (ev) {
+window.onload = function () {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
   // var globalGain = audioContext.createGain();
   // globalGain.gain.setValueAtTime(0.2, audioContext.currentTime);
   // globalGain.connect(audioContext.destination);
 
-  var button = document.querySelector('.play');
+  const button = document.querySelector('.play');
   button.addEventListener('click', play);
 };
 
 
-function play(e) {
-  var osc1 = audioContext.createOscillator();
-  var osc2 = audioContext.createOscillator();
-  var osc3 = audioContext.createOscillator();
-  var osc4 = audioContext.createOscillator();
+function play() {
+  let osc1 = audioContext.createOscillator();
+  let osc2 = audioContext.createOscillator();
+  let osc3 = audioContext.createOscillator();
 
-  var masterGain = audioContext.createGain();
+  let masterGain = audioContext.createGain();
   masterGain.gain.setValueAtTime(0.3, audioContext.currentTime);
 
   osc1.frequency.setValueAtTime(440, audioContext.currentTime);
