@@ -36,27 +36,26 @@ const F5 = 440 * Math.pow(2, 8/12);
 const G5 = 440 * Math.pow(2, 10/12);
 const A5 = 440 * Math.pow(2, 12/12);
 
-var sixteenth = 0.125;
-var eighth = 0.25;
-var quarter = 0.50;
-var half = 1;
-var dottedHalf = 1.50;
-var whole = 2;
-
-var susSixteenth = 0.1;
-var susEighth = 0.2;
-var susQuarter = 0.45;
-var susHalf = 0.95;
-var susDottedQuarter = 1.45;
-var susWhole = 1.95;
-
 function Synth (context) {
-  this.context = context;
-};
+    this.context = context;
+    this.sixteenth = 0.125;
+    this.eighth = 0.25;
+    this.quarter = 0.50;
+    this.half = 1;
+    this.dottedHalf = 1.50;
+    this.whole = 2;
+
+    this.susSixteenth = 0.1;
+    this.susEighth = 0.2;
+    this.susQuarter = 0.45;
+    this.susHalf = 0.95;
+    this.susDottedQuarter = 1.45;
+    this.susWhole = 1.95;
+}
 
 Synth.prototype.setup = function() {
-  var audioCtx = this.context;
-  var partialAmplitudes = [1, 0.5, 0.7, 0.3,];
+  const audioCtx = this.context;
+  const partialAmplitudes = [1, 0.5, 0.7, 0.3,];
   this.partials = partialAmplitudes.map(() => audioCtx.createOscillator());
   this.partialGains = partialAmplitudes.map(() => audioCtx.createGain());
   this.masterGain = audioCtx.createGain();
@@ -82,59 +81,65 @@ Synth.prototype.trigger = function(frequency, time, sustain) {
 };
 
 Synth.prototype.melody1 = function(t) {
-  this.trigger(D3, t, susSixteenth);
-  this.trigger(E3, t + sixteenth, susSixteenth);
-  this.trigger(F3, t + eighth, susSixteenth);
-  this.trigger(G2, t + quarter - sixteenth, susSixteenth);
-  this.trigger(A2, t + quarter, susQuarter);
-  this.trigger(B2, t + half, susSixteenth);
-  this.trigger(C3, t + half + sixteenth, susSixteenth);
-  this.trigger(D3, t + half + eighth, susEighth);
-  this.trigger(C3, t + dottedHalf, susEighth);
-  this.trigger(G2, t + dottedHalf + eighth, susEighth);
+  this.trigger(D3, t, this.susSixteenth);
+  this.trigger(E3, t + this.sixteenth, this.susSixteenth);
+  this.trigger(F3, t + this.eighth, this.susSixteenth);
+  this.trigger(G2, t + this.quarter - this.sixteenth, this.susSixteenth);
+  this.trigger(A2, t + this.quarter, this.susQuarter);
+  this.trigger(B2, t + this.half, this.susSixteenth);
+  this.trigger(C3, t + this.half + this.sixteenth, this.susSixteenth);
+  this.trigger(D3, t + this.half + this.eighth, this.susEighth);
+  this.trigger(C3, t + this.dottedHalf, this.susEighth);
+  this.trigger(G2, t + this.dottedHalf + this.eighth, this.susEighth);
 };
 
 Synth.prototype.melody2 = function (t) {
-  this.trigger(C3, t, susEighth);
-  this.trigger(E3, t + eighth, susEighth);
-  this.trigger(G3, t + quarter, susSixteenth);
-  this.trigger(F3, t + quarter + sixteenth, susSixteenth);
-  this.trigger(E3, t + quarter + eighth, susSixteenth);
-  this.trigger(D3, t + half - sixteenth, susSixteenth);
-  this.trigger(G2, t + half, susQuarter);
-  this.trigger(C3, t + dottedHalf, susQuarter);
+  this.trigger(C3, t, this.susEighth);
+  this.trigger(E3, t + this.eighth, this.susEighth);
+  this.trigger(G3, t + this.quarter, this.susSixteenth);
+  this.trigger(F3, t + this.quarter + this.sixteenth, this.susSixteenth);
+  this.trigger(E3, t + this.quarter + this.eighth, this.susSixteenth);
+  this.trigger(D3, t + this.half - this.sixteenth, this.susSixteenth);
+  this.trigger(G2, t + this.half, this.susQuarter);
+  this.trigger(C3, t + this.dottedHalf, this.susQuarter);
 };
 
 Synth.prototype.melody3 = function (t) {
-  this.trigger(G2, t, susSixteenth);
-  this.trigger(A2, t + sixteenth, susSixteenth);
-  this.trigger(B2, t + eighth, susSixteenth);
-  this.trigger(C3, t + quarter - sixteenth, susSixteenth);
-  this.trigger(A2, t + quarter, susSixteenth);
-  this.trigger(B2, t + quarter + sixteenth, susSixteenth);
-  this.trigger(C3, t + quarter + eighth, susSixteenth);
-  this.trigger(D3, t + half - sixteenth, susSixteenth);
-  this.trigger(B2, t + half, susSixteenth);
-  this.trigger(C3, t + half + sixteenth, susSixteenth);
-  this.trigger(D3, t + half + eighth, susSixteenth);
-  this.trigger(E3, t + dottedHalf - sixteenth, susSixteenth);
-  this.trigger(E3, t + dottedHalf, susSixteenth);
-  this.trigger(D3, t + dottedHalf + sixteenth, susSixteenth);
-  this.trigger(C3, t + dottedHalf + eighth, susEighth);
+  this.trigger(G2, t, this.susSixteenth);
+  this.trigger(A2, t + this.sixteenth, this.susSixteenth);
+  this.trigger(B2, t + this.eighth, this.susSixteenth);
+  this.trigger(C3, t + this.quarter - this.sixteenth, this.susSixteenth);
+  this.trigger(A2, t + this.quarter, this.susSixteenth);
+  this.trigger(B2, t + this.quarter + this.sixteenth, this.susSixteenth);
+  this.trigger(C3, t + this.quarter + this.eighth, this.susSixteenth);
+  this.trigger(D3, t + this.half - this.sixteenth, this.susSixteenth);
+  this.trigger(B2, t + this.half, this.susSixteenth);
+  this.trigger(C3, t + this.half + this.sixteenth, this.susSixteenth);
+  this.trigger(D3, t + this.half + this.eighth, this.susSixteenth);
+  this.trigger(E3, t + this.dottedHalf - this.sixteenth, this.susSixteenth);
+  this.trigger(E3, t + this.dottedHalf, this.susSixteenth);
+  this.trigger(D3, t + this.dottedHalf + this.sixteenth, this.susSixteenth);
+  this.trigger(C3, t + this.dottedHalf + this.eighth, this.susEighth);
 };
 
 Synth.prototype.melody4 = function (t) {
-  this.trigger(A1, t, susSixteenth);
-  this.trigger(A1, t + sixteenth, susSixteenth);
-  this.trigger(A1, t + eighth, susEighth);
-  this.trigger(C2, t + quarter, susSixteenth);
-  this.trigger(C2, t + quarter + sixteenth, susSixteenth);
-  this.trigger(C2, t + quarter + eighth, susEighth);
-  this.trigger(E2, t + half, susSixteenth);
-  this.trigger(E2, t + half + sixteenth, susSixteenth);
-  this.trigger(E2, t + half + eighth, susEighth);
-  this.trigger(G2, t + dottedHalf, susSixteenth);
-  this.trigger(G2, t + dottedHalf + sixteenth, susSixteenth);
-  this.trigger(G2, t + dottedHalf + eighth, susEighth);
+  this.trigger(A1, t, this.susSixteenth);
+  this.trigger(A1, t + this.sixteenth, this.susSixteenth);
+  this.trigger(A1, t + this.eighth, this.susEighth);
+  this.trigger(C2, t + this.quarter, this.susSixteenth);
+  this.trigger(C2, t + this.quarter + this.sixteenth, this.susSixteenth);
+  this.trigger(C2, t + this.quarter + this.eighth, this.susEighth);
+  this.trigger(E2, t + this.half, this.susSixteenth);
+  this.trigger(E2, t + this.half + this.sixteenth, this.susSixteenth);
+  this.trigger(E2, t + this.half + this.eighth, this.susEighth);
+  this.trigger(G2, t + this.dottedHalf, this.susSixteenth);
+  this.trigger(G2, t + this.dottedHalf + this.sixteenth, this.susSixteenth);
+  this.trigger(G2, t + this.dottedHalf + this.eighth, this.susEighth);
+};
+
+Synth.prototype.playLoop = function(t, melody) {
+    this[melody](t);
+    this[melody](t + 2);
+    this[melody](t + 4);
 };
 
