@@ -26,15 +26,15 @@
 </html>
 
 <script>
-  window.onload = function (ev) {
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  window.onload = function () {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    var synth = new Synth(audioContext);
-    var drums = new Drums(audioContext);
+    const synth = new Synth(audioContext);
+    const drums = new Drums(audioContext);
 
-    var options = document.querySelector('.options');
+    const options = document.querySelector('.options');
 
-    var elements = '<select class="sound">' +
+    const elements = '<select class="sound">' +
       '<option></option>' +
       '<option value="song1">Melody 1</option> ' +
       '<option value="song2">Melody 2</option> ' +
@@ -70,113 +70,61 @@
       '<option value="3">12</option>' +
       '<option value="4">16</option>' +
       '</select><br />';
-      for(let i = 0; i < 16; i++){
+      for(let i = 0; i < 16; i++) {
         options.insertAdjacentHTML('beforeend', elements);
       }
 
-    document.querySelector('.play').addEventListener('click', (e) => {
+    document.querySelector('.play').addEventListener('click', () => {
       let now = audioContext.currentTime;
       let sounds = document.querySelectorAll('.sound');
       let starts = document.querySelectorAll('.start');
       let durations = document.querySelectorAll('.duration');
 
-      for(let i = 0; i < 16; i++){
+      for(let i = 0; i < 16; i++) {
 
         switch(sounds[i].value) {
           case 'drum1':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              drum1(now + Number(starts[i].value) + 8 * j, drums);
+              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track1', 'fill3');
             }
             break;
           case 'drum2':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              drum2(now + Number(starts[i].value) + 8 * j, drums);
+              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track2', 'fill2');
             }
             break;
           case 'drum3':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              drum3(now + Number(starts[i].value) + 8 * j, drums);
+              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track3', 'fill2');
             }
             break;
           case 'drum4':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              drum4(now + Number(starts[i].value) + 8 * j, drums);
+              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track4', 'fill1');
             }
-            break;
+              break;
           case 'song1':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              song1(now + Number(starts[i].value) + 8 * j, synth);
+              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody1');
             }
             break;
           case 'song2':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              song2(now + Number(starts[i].value) + 8 * j, synth);
+              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody2');
             }
             break;
           case 'song3':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              song3(now + Number(starts[i].value) + 8 * j, synth);
+              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody3');
             }
             break;
           case 'song4':
             for(let j = 0; j < Number(durations[i].value); j++) {
-              song4(now + Number(starts[i].value) + 8 * j, synth);
+              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody4');
             }
             break;
         }
       }
     });
   };
-
-  function song1(now, synth) {
-    synth.melody1(now);
-    synth.melody1(now + 2);
-    synth.melody1(now + 4);
-  }
-
-  function song2(now, synth) {
-    synth.melody2(now);
-    synth.melody2(now + 2);
-    synth.melody2(now + 4);
-  }
-
-  function song3(now, synth) {
-    synth.melody3(now);
-    synth.melody3(now + 2);
-    synth.melody3(now + 4);
-  }
-
-  function song4(now, synth) {
-    synth.melody4(now);
-    synth.melody4(now + 2);
-    synth.melody4(now + 4);
-  }
-
-  function drum1(now, drums) {
-    drums.track1(now);
-    drums.track1(now + 2);
-    drums.track1(now + 4);
-    drums.fill3(now + 6);
-  }
-
-  function drum2(now, drums) {
-    drums.track2(now);
-    drums.track2(now + 2);
-    drums.track2(now + 4);
-    drums.fill2(now + 6);
-  }
-
-  function drum3(now, drums) {
-    drums.track3(now);
-    drums.track3(now + 2);
-    drums.track3(now + 4);
-    drums.fill2(now + 6);
-  }
-
-  function drum4(now, drums) {
-    drums.track4(now);
-    drums.track4(now + 2);
-    drums.track4(now + 4);
-    drums.fill1(now + 6);
-  }
 </script>
