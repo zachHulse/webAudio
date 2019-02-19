@@ -186,6 +186,13 @@ Drums.prototype.fill3 = function (now) {
     snare.trigger(now + this.dottedHalf + this.eighth);
 };
 
+Drums.prototype.playLoop = function (t, track, fill) {
+    this[track](t);
+    this[track](t + 2);
+    this[track](t + 4);
+    this[fill](t + 6);
+};
+
 function Kick(context) {
     this.context = context;
 }
