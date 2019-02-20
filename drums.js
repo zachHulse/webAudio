@@ -13,9 +13,7 @@ function Drums(context) {
 }
 
 Drums.prototype.track2 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, snare, hats} = this;
 
     kick.trigger(now);
     kick.trigger(now + this.sixteenth);
@@ -47,9 +45,7 @@ Drums.prototype.track2 = function (now) {
 };
 
 Drums.prototype.track1 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, snare, hats} = this;
 
     kick.trigger(now);
     kick.trigger(now + this.eighth);
@@ -70,9 +66,7 @@ Drums.prototype.track1 = function (now) {
 };
 
 Drums.prototype.track3 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, snare, hats} = this;
 
     kick.trigger(now);
     kick.trigger(now + this.half - this.sixteenth);
@@ -89,9 +83,7 @@ Drums.prototype.track3 = function (now) {
 };
 
 Drums.prototype.track4 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, snare, hats} = this;
 
     kick.trigger(now);
     kick.trigger(now + this.quarter - this.sixteenth);
@@ -112,9 +104,7 @@ Drums.prototype.track4 = function (now) {
 };
 
 Drums.prototype.fill1 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, snare, hats} = this;
 
     kick.trigger(now);
     kick.trigger(now + this.sixteenth);
@@ -137,9 +127,7 @@ Drums.prototype.fill1 = function (now) {
 };
 
 Drums.prototype.fill2 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, snare, hats} = this;
 
     kick.trigger(now);
     kick.trigger(now + this.sixteenth);
@@ -163,9 +151,7 @@ Drums.prototype.fill2 = function (now) {
 };
 
 Drums.prototype.fill3 = function (now) {
-    let kick = this.kick;
-    let hats = this.hats;
-    let snare = this.snare;
+    const {kick, hats, snare} = this;
 
     hats.trigger(now);
     hats.trigger(now + this.sixteenth);
