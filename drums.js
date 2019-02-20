@@ -1,8 +1,8 @@
 function Drums(context) {
-    this.context = context;
     this.kick = new Kick(context);
     this.hats = new HiHat(context);
     this.snare = new Snare(context);
+    this.thirtySecond = 0.0625;
     this.sixteenth = 0.125;
     this.eighth = 0.25;
     this.quarter = 0.50;
@@ -184,6 +184,44 @@ Drums.prototype.fill3 = function (now) {
     kick.trigger(now + this.dottedHalf);
     kick.trigger(now + this.dottedHalf + this.sixteenth);
     snare.trigger(now + this.dottedHalf + this.eighth);
+};
+
+Drums.prototype.fill4 = function(now) {
+    const {snare, kick, thirtySecond, sixteenth, eighth, quarter, half, dottedQuarter, dottedHalf, whole} = this;
+
+    snare.trigger(now);
+    snare.trigger(now + thirtySecond);
+    kick.trigger(now + sixteenth);
+    kick.trigger(now + sixteenth + thirtySecond);
+    kick.trigger(now + eighth);
+    kick.trigger(now + eighth + thirtySecond);
+    snare.trigger(now + eighth + sixteenth);
+    snare.trigger(now + quarter - thirtySecond);
+    snare.trigger(now + quarter);
+    snare.trigger(now + quarter + thirtySecond);
+    kick.trigger(now + quarter + sixteenth);
+    kick.trigger(now + quarter + sixteenth + thirtySecond);
+    kick.trigger(now + dottedQuarter);
+    kick.trigger(now + dottedQuarter + thirtySecond);
+    snare.trigger(now + dottedQuarter + sixteenth);
+    snare.trigger(now + half - thirtySecond);
+
+    snare.trigger(now + half);
+    snare.trigger(now + half + thirtySecond);
+    snare.trigger(now + half + sixteenth);
+    snare.trigger(now + half + sixteenth + thirtySecond);
+    kick.trigger(now + half + eighth);
+    kick.trigger(now + half + eighth + thirtySecond);
+    snare.trigger(now + half + eighth + sixteenth);
+    snare.trigger(now + dottedHalf - thirtySecond);
+    snare.trigger(now + dottedHalf);
+    snare.trigger(now + dottedHalf + thirtySecond);
+    snare.trigger(now + dottedHalf + sixteenth);
+    snare.trigger(now + dottedHalf + sixteenth + thirtySecond);
+    kick.trigger(now + dottedHalf + eighth);
+    kick.trigger(now + dottedHalf + eighth + thirtySecond);
+    snare.trigger(now + dottedHalf + eighth + sixteenth);
+    snare.trigger(now + whole - thirtySecond);
 };
 
 Drums.prototype.playLoop = function (t, track, fill) {
