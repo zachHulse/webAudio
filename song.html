@@ -1,130 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Song</title>
-  <script src="synth.js"></script>
-  <script src="drums.js"></script>
+    <meta charset="UTF-8">
+    <title>Song</title>
+    <script src="synth.js"></script>
+    <script src="drums.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <style>
-  select:hover {
-    cursor: pointer;
-  }
-  button:hover {
-    cursor: pointer;
-  }
+    select:hover {
+        cursor: pointer;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
 </style>
-<body>
+<body class="container-fluid">
 <h1><a href="start.html">Song</a></h1>
 <div class="heading">
-  <span>Select Melody/Rhythm</span> | <span>Select Starting Measure</span> | <span>Select Duration</span>
+    <div class="row">
+        <div class="col-md-2"><h4>Melody/Rhythm</h4></div>
+        <div class="col-md-2"><h4>Starting Measure</h4></div>
+        <div class="col-md-2"><h4>Duration</h4></div>
+    </div>
 </div>
 <div class="options"></div>
-
-<button class="play">Play</button>
+<br />
+<button class="play btn btn-primary">Play</button>
 </body>
 </html>
 
 <script>
-  window.onload = function () {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    window.onload = function () {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    const synth = new Synth(audioContext);
-    const drums = new Drums(audioContext);
+        const synth = new Synth(audioContext);
+        const drums = new Drums(audioContext);
 
-    const options = document.querySelector('.options');
+        const options = document.querySelector('.options');
+        let group_num = 1;
 
-    const elements = '<select class="sound">' +
-      '<option></option>' +
-      '<option value="song1">Melody 1</option> ' +
-      '<option value="song2">Melody 2</option> ' +
-      '<option value="song3">Melody 3</option> ' +
-      '<option value="song4">Melody 4</option> ' +
-      '<option value="drum1">Rhythm 1</option> ' +
-      '<option value="drum2">Rhythm 2</option> ' +
-      '<option value="drum3">Rhythm 3</option> ' +
-      '<option value="drum4">Rhythm 4</option> ' +
-      '</select>' +
-      '<select class="start" style="margin-left: 76px">' +
-      '<option value="0">1</option>' +
-      '<option value="8">5</option>' +
-      '<option value="16">9</option>' +
-      '<option value="24">13</option>' +
-      '<option value="32">17</option>' +
-      '<option value="40">21</option>' +
-      '<option value="48">25</option>' +
-      '<option value="14">29</option>' +
-      '<option value="16">33</option>' +
-      '<option value="18">37</option>' +
-      '<option value="20">41</option>' +
-      '<option value="22">45</option>' +
-      '<option value="24">49</option>' +
-      '<option value="26">53</option>' +
-      '<option value="28">57</option>' +
-      '<option value="30">61</option>' +
-      '</select>' +
-      '<select class="duration" style="margin-left: 118px">' +
-      '<option value="0">0</option>' +
-      '<option value="1">4</option>' +
-      '<option value="2">8</option>' +
-      '<option value="3">12</option>' +
-      '<option value="4">16</option>' +
-      '</select><br />';
-      for(let i = 0; i < 16; i++) {
-        options.insertAdjacentHTML('beforeend', elements);
-      }
+        const formGroup = '<div class="col-md-2">' +
+            '<select class="sound form-control">' +
+            '<option></option>' +
+            '<option value="song1">Melody 1</option> ' +
+            '<option value="song2">Melody 2</option> ' +
+            '<option value="song3">Melody 3</option> ' +
+            '<option value="song4">Melody 4</option> ' +
+            '<option value="drum1">Rhythm 1</option> ' +
+            '<option value="drum2">Rhythm 2</option> ' +
+            '<option value="drum3">Rhythm 3</option> ' +
+            '<option value="drum4">Rhythm 4</option> ' +
+            '</select>' +
+            '</div>' +
+            '<div class="col-md-2">' +
+            '<select class="start form-control">' +
+            '<option value="0">1</option>' +
+            '<option value="8">5</option>' +
+            '<option value="16">9</option>' +
+            '<option value="24">13</option>' +
+            '<option value="32">17</option>' +
+            '<option value="40">21</option>' +
+            '<option value="48">25</option>' +
+            '<option value="14">29</option>' +
+            '<option value="16">33</option>' +
+            '<option value="18">37</option>' +
+            '<option value="20">41</option>' +
+            '<option value="22">45</option>' +
+            '<option value="24">49</option>' +
+            '<option value="26">53</option>' +
+            '<option value="28">57</option>' +
+            '<option value="30">61</option>' +
+            '</select>' +
+            '</div>' +
+            '<div class="col-md-2">' +
+            '<select class="duration form-control">' +
+            '<option value="0">0</option>' +
+            '<option value="1">4</option>' +
+            '<option value="2">8</option>' +
+            '<option value="3">12</option>' +
+            '<option value="4">16</option>' +
+            '</select>' +
+            '</div>';
 
-    document.querySelector('.play').addEventListener('click', () => {
-      let now = audioContext.currentTime;
-      let sounds = document.querySelectorAll('.sound');
-      let starts = document.querySelectorAll('.start');
-      let durations = document.querySelectorAll('.duration');
+        options.insertAdjacentHTML(
+            'beforeend',
+            `<div class="row">
+                ${formGroup}
+                <div class="col-md-1 add-row-container">
+                    <button class="btn btn-primary add-row">+</button>
+                </div>
+            </div>`
+        );
 
-      for(let i = 0; i < 16; i++) {
+        document.querySelector('.add-row').addEventListener('click', () => {
+            const elem = document.querySelector('.add-row-container');
+            elem.parentNode.removeChild(elem);
+            group_num++;
+            options.insertAdjacentHTML(
+                'beforeend',
+                `<div class="row">
+                    ${formGroup}
+                </div>`
+            );
+           let rows = document.querySelectorAll('div.row');
+           let last = rows[rows.length - 1];
+           last.appendChild(elem);
+        });
 
-        switch(sounds[i].value) {
-          case 'drum1':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track1', 'fill3');
+        document.querySelector('.play').addEventListener('click', () => {
+            let now = audioContext.currentTime;
+            let sounds = document.querySelectorAll('.sound');
+            let starts = document.querySelectorAll('.start');
+            let durations = document.querySelectorAll('.duration');
+
+            for (let i = 0; i < group_num; i++) {
+
+                switch (sounds[i].value) {
+                    case 'drum1':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track1', 'fill3');
+                        }
+                        break;
+                    case 'drum2':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track2', 'fill4');
+                        }
+                        break;
+                    case 'drum3':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track3', 'fill2');
+                        }
+                        break;
+                    case 'drum4':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track4', 'fill1');
+                        }
+                        break;
+                    case 'song1':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody1');
+                        }
+                        break;
+                    case 'song2':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody2');
+                        }
+                        break;
+                    case 'song3':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody3');
+                        }
+                        break;
+                    case 'song4':
+                        for (let j = 0; j < Number(durations[i].value); j++) {
+                            synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody4');
+                        }
+                        break;
+                }
             }
-            break;
-          case 'drum2':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track2', 'fill4');
-            }
-            break;
-          case 'drum3':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track3', 'fill2');
-            }
-            break;
-          case 'drum4':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              drums.playLoop(now + Number(starts[i].value) + 8 * j, 'track4', 'fill1');
-            }
-              break;
-          case 'song1':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody1');
-            }
-            break;
-          case 'song2':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody2');
-            }
-            break;
-          case 'song3':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody3');
-            }
-            break;
-          case 'song4':
-            for(let j = 0; j < Number(durations[i].value); j++) {
-              synth.playLoop(now + Number(starts[i].value) + 8 * j, 'melody4');
-            }
-            break;
-        }
-      }
-    });
-  };
+        });
+    };
 </script>
