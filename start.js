@@ -1,4 +1,4 @@
-const audioContext;
+let audioContext;
 
 window.addEventListener('DOMContentLoaded', () => {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -8,11 +8,10 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function play(e) {
+function play() {
   const osc1 = audioContext.createOscillator();
   const osc2 = audioContext.createOscillator();
   const osc3 = audioContext.createOscillator();
-  const osc4 = audioContext.createOscillator();
 
   const masterGain = audioContext.createGain();
   masterGain.gain.setValueAtTime(0.3, audioContext.currentTime);
