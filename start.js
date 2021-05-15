@@ -1,25 +1,21 @@
-var audioContext;
+const audioContext;
 
 
 window.onload = function (ev) {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-  // var globalGain = audioContext.createGain();
-  // globalGain.gain.setValueAtTime(0.2, audioContext.currentTime);
-  // globalGain.connect(audioContext.destination);
-
-  var button = document.querySelector('.play');
+  const button = document.querySelector('.play');
   button.addEventListener('click', play);
 };
 
 
 function play(e) {
-  var osc1 = audioContext.createOscillator();
-  var osc2 = audioContext.createOscillator();
-  var osc3 = audioContext.createOscillator();
-  var osc4 = audioContext.createOscillator();
+  const osc1 = audioContext.createOscillator();
+  const osc2 = audioContext.createOscillator();
+  const osc3 = audioContext.createOscillator();
+  const osc4 = audioContext.createOscillator();
 
-  var masterGain = audioContext.createGain();
+  const masterGain = audioContext.createGain();
   masterGain.gain.setValueAtTime(0.3, audioContext.currentTime);
 
   osc1.frequency.setValueAtTime(440, audioContext.currentTime);
@@ -34,7 +30,6 @@ function play(e) {
   osc3.frequency.setValueAtTime(660 * Math.pow(2, 1/12), audioContext.currentTime + 1);
   osc3.frequency.setValueAtTime(660 * Math.pow(2, 2/12), audioContext.currentTime + 2);
 
-  //osc1.connect(audioContext.destination);
   osc1.connect(masterGain);
   osc2.connect(masterGain);
   osc3.connect(masterGain);
