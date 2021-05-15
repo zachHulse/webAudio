@@ -1,12 +1,11 @@
 const audioContext;
 
-
-window.onload = function (ev) {
+window.addEventListener('DOMContentLoaded', () => {
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
   const button = document.querySelector('.play');
   button.addEventListener('click', play);
-};
+});
 
 
 function play(e) {
