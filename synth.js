@@ -36,27 +36,27 @@ const F5 = 440 * Math.pow(2, 8/12);
 const G5 = 440 * Math.pow(2, 10/12);
 const A5 = 440 * Math.pow(2, 12/12);
 
-var sixteenth = 0.125;
-var eighth = 0.25;
-var quarter = 0.50;
-var half = 1;
-var dottedHalf = 1.50;
-var whole = 2;
+const sixteenth = 0.125;
+const eighth = 0.25;
+const quarter = 0.50;
+const half = 1;
+const dottedHalf = 1.50;
+const whole = 2;
 
-var susSixteenth = 0.1;
-var susEighth = 0.2;
-var susQuarter = 0.45;
-var susHalf = 0.95;
-var susDottedQuarter = 1.45;
-var susWhole = 1.95;
+const susSixteenth = 0.1;
+const susEighth = 0.2;
+const susQuarter = 0.45;
+const susHalf = 0.95;
+const susDottedQuarter = 1.45;
+const susWhole = 1.95;
 
 function Synth (context) {
   this.context = context;
 };
 
 Synth.prototype.setup = function() {
-  var audioCtx = this.context;
-  var partialAmplitudes = [1, 0.5, 0.7, 0.3,];
+  const audioCtx = this.context;
+  const partialAmplitudes = [1, 0.5, 0.7, 0.3,];
   this.partials = partialAmplitudes.map(() => audioCtx.createOscillator());
   this.partialGains = partialAmplitudes.map(() => audioCtx.createGain());
   this.masterGain = audioCtx.createGain();
