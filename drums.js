@@ -1,10 +1,3 @@
-var sixteenth = 0.125;
-var eighth = 0.25;
-var quarter = 0.50;
-var half = 1;
-var dottedHalf = 1.50;
-var whole = 2;
-
 function Drums(context) {
   this.context = context;
   this.kick = new Kick(context);
@@ -25,22 +18,9 @@ Drums.prototype.track2 = function(now) {
   kick.trigger(now + half + sixteenth);
   kick.trigger(now + half + eighth);
 
-  hats.trigger(now);
-  hats.trigger(now + sixteenth);
-  hats.trigger(now + eighth);
-  hats.trigger(now + eighth + sixteenth);
-  hats.trigger(now + quarter);
-  hats.trigger(now + quarter + sixteenth);
-  hats.trigger(now + quarter + eighth);
-  hats.trigger(now + quarter + eighth + sixteenth);
-  hats.trigger(now + half);
-  hats.trigger(now + half + sixteenth);
-  hats.trigger(now + half + eighth);
-  hats.trigger(now + half + eighth + sixteenth);
-  hats.trigger(now + dottedHalf);
-  hats.trigger(now + dottedHalf + sixteenth);
-  hats.trigger(now + dottedHalf + eighth);
-  hats.trigger(now + dottedHalf + eighth + sixteenth);
+  for (let i = 0; i < 4; i +=sixteenth) {
+    hats.trigger(now + i);
+  }
 
   snare.trigger(now + quarter);
   snare.trigger(now + dottedHalf);
@@ -52,20 +32,20 @@ Drums.prototype.track1 = function(now) {
   let snare = this.snare;
 
   kick.trigger(now);
-  kick.trigger(now + 0.25);
-  kick.trigger(now + 1);
+  kick.trigger(now + eighth);
+  kick.trigger(now + half);
 
   hats.trigger(now);
-  hats.trigger(now + 0.25);
-  hats.trigger(now + 0.50);
-  hats.trigger(now + 0.75);
-  hats.trigger(now + 1);
+  hats.trigger(now + eighth);
+  hats.trigger(now + quarter);
+  hats.trigger(now + dottedQuarter);
+  hats.trigger(now + half);
   hats.trigger(now + 1.25);
-  hats.trigger(now + 1.50);
+  hats.trigger(now + dottedHalf);
   hats.trigger(now + 1.75);
 
-  snare.trigger(now + 0.5);
-  snare.trigger(now + 1.50);
+  snare.trigger(now + quarter);
+  snare.trigger(now + dottedHalf);
 
 };
 
@@ -136,6 +116,7 @@ Drums.prototype.fill1 = function (now) {
 
 };
 
+
 Drums.prototype.fill2 = function (now) {
   let kick = this.kick;
   let hats = this.hats;
@@ -188,7 +169,7 @@ Drums.prototype.fill3 = function (now) {
 
 function Kick(context) {
   this.context = context;
-};
+}
 
 Kick.prototype.setup = function() {
   this.osc = this.context.createOscillator();
@@ -203,24 +184,24 @@ Kick.prototype.trigger = function(time) {
   this.osc.frequency.setValueAtTime(150, time);
   this.gain.gain.setValueAtTime(1, time);
 
-  this.osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.5);
-  this.gain.gain.exponentialRampToValueAtTime(0.01, time + 0.5);
+  this.osc.frequency.exponentialRampToValueAtTime(0.01, time + quarter);
+  this.gain.gain.exponentialRampToValueAtTime(0.01, time + quarter);
 
   this.osc.start(time);
 
-  this.osc.stop(time + 0.5);
+  this.osc.stop(time + quarter);
 };
 
 function Snare(context) {
   this.context = context;
-};
+}
 
 Snare.prototype.noiseBuffer = function() {
-  var bufferSize = this.context.sampleRate;
-  var buffer = this.context.createBuffer(1, bufferSize, this.context.sampleRate);
-  var output = buffer.getChannelData(0);
+  const bufferSize = this.context.sampleRate;
+  const buffer = this.context.createBuffer(1, bufferSize, this.context.sampleRate);
+  const output = buffer.getChannelData(0);
 
-  for (var i = 0; i < bufferSize; i++) {
+  for (let i = 0; i < bufferSize; i++) {
     output[i] = Math.random() * 2 - 1;
   }
 
@@ -230,7 +211,7 @@ Snare.prototype.noiseBuffer = function() {
 Snare.prototype.setup = function() {
   this.noise = this.context.createBufferSource();
   this.noise.buffer = this.noiseBuffer();
-  var noiseFilter = this.context.createBiquadFilter();
+  const noiseFilter = this.context.createBiquadFilter();
   noiseFilter.type = 'highpass';
   noiseFilter.frequency.value = 1000;
   this.noise.connect(noiseFilter);
@@ -264,7 +245,7 @@ Snare.prototype.trigger = function(time) {
 
 function HiHat(context) {
   this.context = context;
-};
+}
 
 HiHat.prototype.setup = function() {
   this.gain = this.context.createGain();
@@ -286,14 +267,14 @@ HiHat.prototype.setup = function() {
 
 HiHat.prototype.trigger = function(time) {
   this.setup();
-  var fundamental = 40;
-  var ratios = [2, 3, 4.16, 5.43, 6.79, 8.21];
+  const fundamental = 40;
+  const ratios = [2, 3, 4.16, 5.43, 6.79, 8.21];
 
 // Create the oscillators
-  var context = this.context;
-  var bandpass = this.bandpass;
-  ratios.forEach(function(ratio) {
-    var osc = context.createOscillator();
+  const context = this.context;
+  const bandpass = this.bandpass;
+  ratios.forEach((ratio) => {
+    const osc = context.createOscillator();
     osc.type = "square";
     // Frequency is the fundamental * this oscillator's ratio
     osc.frequency.value = fundamental * ratio;
