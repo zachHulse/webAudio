@@ -18,7 +18,7 @@ Drums.prototype.track2 = function(now) {
   kick.trigger(now + half + sixteenth);
   kick.trigger(now + half + eighth);
 
-  for (let i = 0; i < 4; i +=sixteenth) {
+  for (let i = 0; i < 2; i += sixteenth) {
     hats.trigger(now + i);
   }
 
@@ -35,14 +35,9 @@ Drums.prototype.track1 = function(now) {
   kick.trigger(now + eighth);
   kick.trigger(now + half);
 
-  hats.trigger(now);
-  hats.trigger(now + eighth);
-  hats.trigger(now + quarter);
-  hats.trigger(now + dottedQuarter);
-  hats.trigger(now + half);
-  hats.trigger(now + 1.25);
-  hats.trigger(now + dottedHalf);
-  hats.trigger(now + 1.75);
+  for (let i = 0; i < 2; i += eighth) {
+    hats.trigger(now + i);
+  }
 
   snare.trigger(now + quarter);
   snare.trigger(now + dottedHalf);
@@ -58,10 +53,9 @@ Drums.prototype.track3 = function (now) {
   kick.trigger(now + half - sixteenth);
   kick.trigger(now + half);
 
-  hats.trigger(now + eighth);
-  hats.trigger(now + quarter + eighth);
-  hats.trigger(now + half + eighth);
-  hats.trigger(now + dottedHalf + eighth);
+  for (let i = eighth; i < 2; i += quarter) {
+    hats.trigger(now + i);
+  }
 
   snare.trigger(now + quarter);
   snare.trigger(now + dottedHalf);
@@ -79,6 +73,10 @@ Drums.prototype.track4 = function (now) {
   kick.trigger(now + quarter + eighth);
   kick.trigger(now + half);
   kick.trigger(now + half + sixteenth);
+
+  for (let i = 0; i < 2; i += sixteenth) {
+    hats.trigger(now + i);
+  }
 
   hats.trigger(now);
   hats.trigger(now + quarter);
