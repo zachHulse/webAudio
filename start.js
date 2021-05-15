@@ -8,7 +8,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function play() {
+async function play() {
+  await audioContext.resume();
   const osc1 = audioContext.createOscillator();
   const osc2 = audioContext.createOscillator();
   const osc3 = audioContext.createOscillator();
